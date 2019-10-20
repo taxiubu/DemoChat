@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Chat Realtime</string>
+    <string name="login">Đăng nhập</string>
+    <string name="register">Đăng kí</string>
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="fullname">Tên đầy đủ</string>
+    <string name="rePassword">Nhập lại mật khẩu</string>
+    <string name="hide">Ẩn</string>
+    <string name="show">Hiện</string>
+</resources>
