@@ -7,6 +7,10 @@ public class ChatMessage {
     private String messageUser;
     private long messageTime;
 
+    public ChatMessage() {
+        //mặc định cần có
+    }
+
     public ChatMessage(String messageText, String messageUser) {
         this.messageText = messageText;
         this.messageUser = messageUser;

@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/colorWhite"
-    tools:context=".RoomChat">
-
-    <ImageView
-        android:layout_marginTop="@dimen/_100sdp"
-        android:background="@drawable/anhnen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_above="@id/layoutSend"
+        android:layout_below="@id/btLogout"
+        android:id="@+id/rcvMessage"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_250sdp">
-    </ImageView>
+        android:layout_height="match_parent"/>
 
+    <Button
+        android:id="@+id/btLogout"
+        android:text="Log out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:id="@+id/layoutSend"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_margin="@dimen/_10sdp"
+            android:id="@+id/btSend"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_send_blue_24dp"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"/>
+        <EditText
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorSilver"
+            android:hint="Aa"
+            android:background="@drawable/bo_tron_xam"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_toLeftOf="@id/btSend"
+            android:id="@+id/etMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 </RelativeLayout>

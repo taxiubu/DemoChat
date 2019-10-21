@@ -1,4 +1,4 @@
-package com.example.chatrealtime.Fragment;
+package com.example.chatrealtime.Login_Register.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.chatrealtime.Interface.IGetFragment;
+import com.example.chatrealtime.Login_Register.Interface.IGetFragment;
 import com.example.chatrealtime.R;
-import com.example.chatrealtime.RoomChat;
+import com.example.chatrealtime.RoomChat.RoomChat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class FragmentLogin extends Fragment {
     FirebaseAuth mAuth;
@@ -33,6 +37,8 @@ public class FragmentLogin extends Fragment {
     IGetFragment listen;
     TextView showOrHide;
     int checkEditText=0;
+    Intent login;
+    FirebaseAuth.AuthStateListener mAuthListener;
     public static FragmentLogin newInstance() {
 
         Bundle args = new Bundle();
@@ -46,6 +52,7 @@ public class FragmentLogin extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_login, container, false);
+        login= new Intent(getContext(), RoomChat.class);
         mAuth= FirebaseAuth.getInstance();
         etEmail= view.findViewById(R.id.etEmail);
         etPassword= view.findViewById(R.id.etPassword);
@@ -66,7 +73,7 @@ public class FragmentLogin extends Fragment {
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listen.call();
+                listen.call(1);
             }
         });
 
@@ -87,6 +94,8 @@ public class FragmentLogin extends Fragment {
 
             }
         });
+
+        getCurrentUser();
         return view;
     }
 
@@ -111,7 +120,6 @@ public class FragmentLogin extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) { if(task.isSuccessful()){
                             dialog.dismiss();
-                            Intent login= new Intent(getContext(), RoomChat.class);
                             startActivity(login);
                         }
                         else {
@@ -120,27 +128,34 @@ public class FragmentLogin extends Fragment {
                  }
         });
     }
+
+    private void getCurrentUser(){
+        mAuthListener= new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user= firebaseAuth.getCurrentUser();
+                if(user!=null){
+                    startActivity(login);
+                }
+                else
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+            }
+        };
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(mAuthListener!=null)
+            mAuth.removeAuthStateListener(mAuthListener);
+    }
 }
 
-    /*private void saveAuth(){
-        Auth.CredentialsApi.save(mCredentialsClient, credential).setResultCallback(
-                new ResultCallback() {
-                    @Override
-                    public void onResult(Status status) {
-                        if (status.isSuccess()) {
-                            // Credentials were saved
-                        } else {
-                            if (status.hasResolution()) {
-                                // Try to resolve the save request. This will prompt the user if
-                                // the credential is new.
-                                try {
-                                    status.startResolutionForResult(this, RC_SAVE);
-                                } catch (IntentSender.SendIntentException e) {
-                                    // Could not resolve the request
-                                }
-                            }
-                        }
-                    }
-                });
-    }*/
+
 

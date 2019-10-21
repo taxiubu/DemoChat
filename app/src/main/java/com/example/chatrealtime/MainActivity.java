@@ -6,9 +6,10 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.chatrealtime.Fragment.FragmentLogin;
-import com.example.chatrealtime.Fragment.FragmentRegister;
-import com.example.chatrealtime.Interface.IGetFragment;
+import com.example.chatrealtime.Login_Register.Fragment.FragmentLogin;
+import com.example.chatrealtime.Login_Register.Fragment.FragmentRegister;
+import com.example.chatrealtime.Login_Register.Fragment.FragmentUpdateProfile;
+import com.example.chatrealtime.Login_Register.Interface.IGetFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements IGetFragment {
@@ -36,7 +37,12 @@ public class MainActivity extends AppCompatActivity implements IGetFragment {
     }
 
     @Override
-    public void call() {
-        getFragment(FragmentRegister.newInstance());
+    public void call(int id) {
+        if(id==1)
+            getFragment(FragmentRegister.newInstance());
+        else if(id==2)
+            getFragment(FragmentUpdateProfile.newInstance());
+        else if(id==3)
+            getFragment(FragmentLogin.newInstance());
     }
 }
