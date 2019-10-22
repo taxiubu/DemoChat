@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -25,8 +26,8 @@ public class FragmentRegister extends Fragment {
     EditText etEmailRegister, etPasswordRegister, etRePassword;
     RelativeLayout btNext;
     FirebaseAuth mAuth;
-    FirebaseAuth.AuthStateListener mAuthListener;
     IGetFragment listen2;
+    ImageView btBackRegister;
     public static FragmentRegister newInstance() {
 
         Bundle args = new Bundle();
@@ -44,7 +45,15 @@ public class FragmentRegister extends Fragment {
         etPasswordRegister= view.findViewById(R.id.etPasswordRegister);
         etRePassword= view.findViewById(R.id.etRePassword);
         btNext= view.findViewById(R.id.btNextRegister);
+        btBackRegister= view.findViewById(R.id.btBackRegister);
         mAuth= FirebaseAuth.getInstance();
+
+        btBackRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         btNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +67,6 @@ public class FragmentRegister extends Fragment {
 
             }
         });
-        //setUser();
         return view;
     }
     private boolean checkDataEditText(){
@@ -91,33 +99,6 @@ public class FragmentRegister extends Fragment {
                 });
 
     }
-
-    /*private void setUser(){
-        mAuthListener= new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user= firebaseAuth.getCurrentUser();
-                if(user!=null){
-                    Toast.makeText(getContext(), user.getUid(), Toast.LENGTH_LONG).show();
-                }
-                else
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-            }
-        };
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if(mAuthListener!=null)
-            mAuth.removeAuthStateListener(mAuthListener);
-    }*/
 
     @Override
     public void onAttach(@NonNull Context context) {

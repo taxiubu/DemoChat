@@ -72,6 +72,8 @@ public class RoomChat extends AppCompatActivity {
         messageList= new ArrayList<>();
         adapter= new AShowMessage(messageList, getBaseContext());
         rcvChatMessage.setAdapter(adapter);
+        rcvChatMessage.setHasFixedSize(true);
+        rcvChatMessage.setItemViewCacheSize(5);
         getMessage();
     }
 

@@ -1,5 +1,6 @@
 package com.example.chatrealtime;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -10,7 +11,6 @@ import com.example.chatrealtime.Login_Register.Fragment.FragmentLogin;
 import com.example.chatrealtime.Login_Register.Fragment.FragmentRegister;
 import com.example.chatrealtime.Login_Register.Fragment.FragmentUpdateProfile;
 import com.example.chatrealtime.Login_Register.Interface.IGetFragment;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements IGetFragment {
     private static final String TAG = "MainActivity";
@@ -18,9 +18,6 @@ public class MainActivity extends AppCompatActivity implements IGetFragment {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(FirebaseAuth.getInstance().getCurrentUser()==null){
-
-        }
         getFragment(FragmentLogin.newInstance());
     }
 
@@ -43,6 +40,12 @@ public class MainActivity extends AppCompatActivity implements IGetFragment {
         else if(id==2)
             getFragment(FragmentUpdateProfile.newInstance());
         else if(id==3)
-            getFragment(FragmentLogin.newInstance());
+            reLoadAct();
+    }
+
+    private void reLoadAct(){
+        Intent reLoad= new Intent(MainActivity.this, MainActivity.class);
+        finish();
+        startActivity(reLoad);
     }
 }
