@@ -58,8 +58,11 @@ public class FragmentRegister extends Fragment {
         btNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkDataEditText()){
+                if(checkBlankEditText()){
                     Toast.makeText(getContext(), "Không được để trống", Toast.LENGTH_LONG).show();
+                }
+                else if(checkRePass()==false){
+                    Toast.makeText(getContext(), "Mật khẩu không đúng", Toast.LENGTH_LONG).show();
                 }
                 else{
                     register();
@@ -69,13 +72,20 @@ public class FragmentRegister extends Fragment {
         });
         return view;
     }
-    private boolean checkDataEditText(){
+    private boolean checkBlankEditText(){
         boolean check= false;
         if(etEmailRegister.getText().toString().equals("") || etPasswordRegister.getText().toString().equals("")
                 || etRePassword.getText().toString().equals("")){
             check=true;
         }
         return check;
+    }
+    private boolean checkRePass(){
+        String pass= etPasswordRegister.getText().toString();
+        String rePass= etRePassword.getText().toString();
+        if(pass.equals(rePass))
+            return true;
+        return false;
     }
     private void register(){
         final ProgressDialog dialog= new ProgressDialog(getContext());

@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.chatrealtime.Login_Register.Interface.IGetFragment;
 import com.example.chatrealtime.R;
-import com.example.chatrealtime.RoomChat.RoomChat;
+import com.example.chatrealtime.RoomChat.HomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -52,7 +52,7 @@ public class FragmentLogin extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_login, container, false);
-        login= new Intent(getContext(), RoomChat.class);
+        login= new Intent(getContext(), HomeActivity.class);
         mAuth= FirebaseAuth.getInstance();
         etEmail= view.findViewById(R.id.etEmail);
         etPassword= view.findViewById(R.id.etPassword);
@@ -124,6 +124,7 @@ public class FragmentLogin extends Fragment {
                         }
                         else {
                             Toast.makeText(getContext(), "Tài khoản không đúng", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                         }
                  }
         });

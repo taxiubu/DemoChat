@@ -1,18 +1,18 @@
-package com.example.chatrealtime.RoomChat;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.chatrealtime.RoomChat.Fragment;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatrealtime.Model.ChatMessage;
 import com.example.chatrealtime.R;
@@ -28,8 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomChat extends AppCompatActivity {
-    Button btLogout;
+public class FragmentRoomChat extends Fragment {
     FirebaseUser user;
     EditText etMessage;
     ImageView btSend;
@@ -37,23 +36,25 @@ public class RoomChat extends AppCompatActivity {
     RecyclerView rcvChatMessage;
     AShowMessage adapter;
     List<ChatMessage> messageList;
+    public static FragmentRoomChat newInstance() {
+
+        Bundle args = new Bundle();
+
+        FragmentRoomChat fragment = new FragmentRoomChat();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room_chat);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view= inflater.inflate(R.layout.fragment_room_chat, container, false);
         user= FirebaseAuth.getInstance().getCurrentUser();
         mdata= FirebaseDatabase.getInstance().getReference();
-        btLogout= findViewById(R.id.btLogout);
-        btSend= findViewById(R.id.btSend);
-        etMessage= findViewById(R.id.etMessage);
-        rcvChatMessage = findViewById(R.id.rcvMessage);
-        btLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                finish();
-            }
-        });
+        btSend= view.findViewById(R.id.btSend);
+        etMessage= view.findViewById(R.id.etMessage);
+        rcvChatMessage= view.findViewById(R.id.rcvMessage);
+
         btSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,32 +68,16 @@ public class RoomChat extends AppCompatActivity {
         });
 
         //hien thi message
-        RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(getBaseContext(), RecyclerView.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         rcvChatMessage.setLayoutManager(layoutManager);
         messageList= new ArrayList<>();
-        adapter= new AShowMessage(messageList, getBaseContext());
+        adapter= new AShowMessage(messageList, getContext());
         rcvChatMessage.setAdapter(adapter);
         rcvChatMessage.setHasFixedSize(true);
         rcvChatMessage.setItemViewCacheSize(5);
         getMessage();
+        return view;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.sign_out, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.menu_sign_out:
-                FirebaseAuth.getInstance().signOut();
-                finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void getMessage(){
         mdata.child("Room Chat").addChildEventListener(new ChildEventListener() {
             @Override

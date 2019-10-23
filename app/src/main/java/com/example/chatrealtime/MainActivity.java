@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements IGetFragment {
 
     public void getFragment(Fragment fragment){
         try {
-            getSupportFragmentManager().beginTransaction().replace(R.id.contain, fragment)
+            getSupportFragmentManager().beginTransaction().replace(R.id.containMainAct, fragment)
                     .addToBackStack(null).commit();
         }catch (Exception e){
             e.printStackTrace();
