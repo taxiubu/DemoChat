@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.chatrealtime.Login_Register.Interface.IGetFragment;
 import com.example.chatrealtime.R;
 import com.example.chatrealtime.RoomChat.Interface.ILogOutAcc;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class FragmentProfile extends Fragment {
     Button btLogout;
     ILogOutAcc listenerLogOut;
+    RelativeLayout btChangeAvatar;
     public static FragmentProfile newInstance() {
 
         Bundle args = new Bundle();
@@ -33,6 +34,7 @@ public class FragmentProfile extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_profile, container, false);
         btLogout= view.findViewById(R.id.btLogout);
+        btChangeAvatar= view.findViewById(R.id.btChangeAvatar);
         btLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,6 +42,7 @@ public class FragmentProfile extends Fragment {
                 listenerLogOut.logOut();
             }
         });
+        //btChangeAvatar.setOnClickListener();
         return view;
     }
 
@@ -52,5 +55,9 @@ public class FragmentProfile extends Fragment {
         else {
             throw new RuntimeException(context.toString()+ "must implement");
         }
+    }
+
+    private void setAvatar(){
+
     }
 }

@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.chatrealtime.Login_Register.Fragment.FragmentLogin;
 import com.example.chatrealtime.Login_Register.Fragment.FragmentRegister;
-import com.example.chatrealtime.Login_Register.Fragment.FragmentUpdateProfile;
+import com.example.chatrealtime.Login_Register.Fragment.FragmentCreateProfile;
 import com.example.chatrealtime.Login_Register.Interface.IGetFragment;
 
 public class MainActivity extends AppCompatActivity implements IGetFragment {
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements IGetFragment {
         if(id==1)
             getFragment(FragmentRegister.newInstance());
         else if(id==2)
-            getFragment(FragmentUpdateProfile.newInstance());
+            getFragment(FragmentCreateProfile.newInstance());
         else if(id==3)
             reLoadAct();
     }

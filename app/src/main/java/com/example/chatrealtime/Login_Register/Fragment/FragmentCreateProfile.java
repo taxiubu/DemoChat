@@ -2,6 +2,7 @@ package com.example.chatrealtime.Login_Register.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,23 +16,27 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.chatrealtime.Login_Register.Interface.IGetFragment;
+import com.example.chatrealtime.Model.UserProfile;
 import com.example.chatrealtime.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class FragmentUpdateProfile extends Fragment {
+public class FragmentCreateProfile extends Fragment {
     EditText etFullname;
     RelativeLayout btSuccessful;
     FirebaseUser user;
     IGetFragment listen3;
-    public static FragmentUpdateProfile newInstance() {
+    DatabaseReference mdata;
+    public static FragmentCreateProfile newInstance() {
 
         Bundle args = new Bundle();
 
-        FragmentUpdateProfile fragment = new FragmentUpdateProfile();
+        FragmentCreateProfile fragment = new FragmentCreateProfile();
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,7 +44,7 @@ public class FragmentUpdateProfile extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_update_profile, container, false);
+        View view= inflater.inflate(R.layout.fragment_create_profile, container, false);
         etFullname= view.findViewById(R.id.etFullName);
         btSuccessful= view.findViewById(R.id.btSuccessful);
         btSuccessful.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +55,7 @@ public class FragmentUpdateProfile extends Fragment {
                 }
                 else {
                     updateProfile();
+                    createUserProfile();
                 }
             }
         });
@@ -64,7 +70,7 @@ public class FragmentUpdateProfile extends Fragment {
         user= FirebaseAuth.getInstance().getCurrentUser();
         UserProfileChangeRequest profileUpdate= new UserProfileChangeRequest.Builder()
                 .setDisplayName(fullname)
-                //.setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
+                .setPhotoUri(Uri.parse("https://i.imgur.com/dEYTGld.png"))
                 .build();
         user.updateProfile(profileUpdate)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -82,7 +88,13 @@ public class FragmentUpdateProfile extends Fragment {
                     }
                 });
     }
-
+    private void createUserProfile(){
+        String fullname= etFullname.getText().toString();
+        user= FirebaseAuth.getInstance().getCurrentUser();
+        UserProfile userProfile= new UserProfile(user.getUid(), fullname, "", "", "");
+        mdata= FirebaseDatabase.getInstance().getReference();
+        mdata.child("UserProfile").push().setValue(userProfile);
+    }
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

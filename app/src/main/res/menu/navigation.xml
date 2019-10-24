@@ -6,9 +6,9 @@
     <item android:icon="@drawable/icon_chat"
         android:id="@+id/itChat"
         android:title="Chat"/>
-    <item android:id="@+id/itPeople"
+    <item android:id="@+id/itFriend"
         android:icon="@drawable/people"
-        android:title="People" />
+        android:title="Friend" />
     <item android:id="@+id/itProfile"
         android:icon="@drawable/profile"
         android:title="Profile"/>

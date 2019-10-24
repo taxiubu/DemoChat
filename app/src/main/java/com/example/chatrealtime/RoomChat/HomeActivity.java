@@ -3,6 +3,8 @@ package com.example.chatrealtime.RoomChat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -34,12 +36,16 @@ public class HomeActivity extends AppCompatActivity implements ILogOutAcc {
                     }
                     case R.id.itProfile:{
                         getFragment(FragmentProfile.newInstance());
+                        Toast.makeText(getBaseContext(), "Profile", Toast.LENGTH_LONG).show();
+                        break;
                     }
                     case R.id.itChat:{
                         getFragment(FragmentChat.newInstance());
+                        break;
                     }
-                    case R.id.itPeople:{
+                    case R.id.itFriend:{
                         getFragment(FragmentFriend.newInstance());
+                        break;
                     }
                 }
                 return false;

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_marginTop="@dimen/_10sdp"
+    android:orientation="horizontal" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:background="@drawable/bo_tron_xam"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp">
+
+    </RelativeLayout>
+    <TextView
+        android:textColor="@color/colorBlack"
+        android:id="@+id/tvNameMyFriend"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textSize="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:text="@string/fullname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
