@@ -4,16 +4,15 @@ import java.util.Date;
 
 public class ChatMessage {
     private String messageText;
-    private String messageUser;
+    private String userID;
     private long messageTime;
-
     public ChatMessage() {
         //mặc định cần có
     }
 
-    public ChatMessage(String messageText, String messageUser) {
+    public ChatMessage(String messageText, String userID) {
         this.messageText = messageText;
-        this.messageUser = messageUser;
+        this.userID = userID;
         messageTime= new Date().getTime();
     }
 
@@ -25,12 +24,12 @@ public class ChatMessage {
         this.messageText = messageText;
     }
 
-    public String getMessageUser() {
-        return messageUser;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setMessageUser(String messageUser) {
-        this.messageUser = messageUser;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public long getMessageTime() {

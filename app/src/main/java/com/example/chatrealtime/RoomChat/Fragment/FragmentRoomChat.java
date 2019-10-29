@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentRoomChat extends Fragment {
-    FirebaseUser user;
+    FirebaseUser currentUser;
     EditText etMessage;
     ImageView btSend;
     DatabaseReference mdata;
@@ -49,7 +48,7 @@ public class FragmentRoomChat extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_room_chat, container, false);
-        user= FirebaseAuth.getInstance().getCurrentUser();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         mdata= FirebaseDatabase.getInstance().getReference();
         btSend= view.findViewById(R.id.btSend);
         etMessage= view.findViewById(R.id.etMessage);
@@ -59,9 +58,9 @@ public class FragmentRoomChat extends Fragment {
             @Override
             public void onClick(View v) {
                 String message= etMessage.getText().toString();
-                String userName= user.getDisplayName();
+                String userID= currentUser.getUid();
 
-                ChatMessage chatMessage= new ChatMessage(message, userName);
+                ChatMessage chatMessage= new ChatMessage(message, userID);
                 mdata.child("Room Chat").push().setValue(chatMessage);
                 etMessage.setText("");
             }
@@ -71,10 +70,11 @@ public class FragmentRoomChat extends Fragment {
         RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         rcvChatMessage.setLayoutManager(layoutManager);
         messageList= new ArrayList<>();
-        adapter= new AShowMessage(messageList, getContext());
+        String currentUserId= currentUser.getUid();
+        adapter= new AShowMessage(messageList, getContext(), currentUserId);
         rcvChatMessage.setAdapter(adapter);
         rcvChatMessage.setHasFixedSize(true);
-        rcvChatMessage.setItemViewCacheSize(5);
+        //rcvChatMessage.setItemViewCacheSize(10);
         getMessage();
         return view;
     }

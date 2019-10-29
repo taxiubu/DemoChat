@@ -1,37 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/colorWhite"
+    android:layout_marginTop="@dimen/_10sdp"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
-        android:layout_margin="@dimen/_10sdp"
-        android:id="@+id/layoutAvatar"
-        android:background="@drawable/bo_tron_xam"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp">
-        <ImageView
-            android:background="@drawable/iconperson"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:id="@+id/layoutMessFriend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:id="@+id/layoutAvatar"
+            android:background="@drawable/bo_tron_xam"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp">
+            <ImageView
+                android:background="@drawable/iconperson"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="@drawable/bo_mess_xam"
+            android:layout_toRightOf="@id/layoutAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_centerInParent="true"
+                android:text="hihi"
+                android:padding="@dimen/_3sdp"
+                android:textColor="@color/colorBlack"
+                android:maxWidth="@dimen/_200sdp"
+                android:minWidth="@dimen/_20sdp"
+                android:textSize="@dimen/_12sdp"
+                android:id="@+id/tvMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_20sdp"/>
+        </RelativeLayout>
     </RelativeLayout>
-    <TextView
-        android:id="@+id/tvMessage"
-        android:background="@drawable/vien_xam"
-        android:textSize="@dimen/_20sdp"
-        android:textColor="@color/colorBlack"
-        android:layout_centerVertical="true"
-        android:layout_below="@+id/layoutAvatar"
-        android:text="1234"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:layout_marginTop="@dimen/_15sdp"
-        android:textColor="@color/colorBlack"
-        android:text="Huân sociu"
-        android:textSize="@dimen/_20sdp"
-        android:layout_toRightOf="@id/layoutAvatar"
-        android:id="@+id/tvUserName"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/layoutMessCurrentUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:id="@+id/layoutAvatarCurrentUser"
+            android:background="@drawable/bo_tron_xam"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp">
+            <ImageView
+                android:background="@drawable/iconperson"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="@drawable/bo_mess_xanh"
+            android:layout_toLeftOf="@id/layoutAvatarCurrentUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_centerInParent="true"
+                android:text="hihi"
+                android:padding="@dimen/_3sdp"
+                android:textColor="@color/colorWhite"
+                android:maxWidth="@dimen/_200sdp"
+                android:minWidth="@dimen/_20sdp"
+                android:textSize="@dimen/_12sdp"
+                android:id="@+id/tvMessageCurrentUser"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_20sdp"/>
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

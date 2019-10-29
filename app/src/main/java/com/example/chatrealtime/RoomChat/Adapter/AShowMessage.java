@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,10 +18,12 @@ import java.util.List;
 public class AShowMessage extends RecyclerView.Adapter<AShowMessage.ViewHolder> {
     List<ChatMessage> messageList;
     Context context;
+    String userID;
 
-    public AShowMessage(List<ChatMessage> messageList, Context context) {
+    public AShowMessage(List<ChatMessage> messageList, Context context, String userID) {
         this.messageList = messageList;
         this.context = context;
+        this.userID= userID;
     }
 
     @NonNull
@@ -33,8 +36,15 @@ public class AShowMessage extends RecyclerView.Adapter<AShowMessage.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ChatMessage message= messageList.get(position);
-        holder.tvMessage.setText(message.getMessageText());
-        holder.tvUserName.setText(message.getMessageUser());
+        if(userID!=message.getUserID()){
+            holder.layoutMessCurrentUser.setVisibility(View.GONE);
+            holder.tvMessage.setText(message.getMessageText());
+        }
+        else {
+            holder.layoutMessFriend.setVisibility(View.GONE);
+            holder.tvMessageCurrentUser.setText(message.getMessageText());
+        }
+
     }
 
     @Override
@@ -43,12 +53,15 @@ public class AShowMessage extends RecyclerView.Adapter<AShowMessage.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        RelativeLayout layoutMessFriend, layoutMessCurrentUser;
         TextView tvMessage;
-        TextView tvUserName;
+        TextView tvMessageCurrentUser;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvMessage= itemView.findViewById(R.id.tvMessage);
-            tvUserName= itemView.findViewById(R.id.tvUserName);
+            tvMessageCurrentUser= itemView.findViewById(R.id.tvMessageCurrentUser);
+            layoutMessFriend = itemView.findViewById(R.id.layoutMessFriend);
+            layoutMessCurrentUser= itemView.findViewById(R.id.layoutMessCurrentUser);
         }
     }
 }

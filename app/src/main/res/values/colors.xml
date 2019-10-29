@@ -17,4 +17,8 @@
     <color name="colorBottomNavigationSelect">#FFFFFF</color>
     <color name="transparent">#00000000</color>
 
+    //color mess
+    <color name="colorMessSilver">#C8CECECE</color>
+    <color name="colorMessBlue">#2196F3</color>
+
 </resources>
